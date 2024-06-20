@@ -16,7 +16,7 @@ namespace PapyrusLikeConfigurationLanguage::Template {
         Boolean
     };
 
-    std::string typeToString(Type type) {
+    inline std::string typeToString(Type type) {
         switch (type) {
             case Type::String:
                 return "String";
