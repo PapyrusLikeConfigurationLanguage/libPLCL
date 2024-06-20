@@ -6,6 +6,18 @@
 #include "../include/Template.hpp"
 
 namespace PapyrusLikeConfigurationLanguage::Template {
+
+    std::string typeToString(Type type) {
+        switch (type) {
+            case Type::String:
+                return "String";
+            case Type::Integer:
+                return "Integer";
+            case Type::Boolean:
+                return "Boolean";
+        }
+    }
+
     [[maybe_unused]] Template Template::fromString(const std::string &input) {
         Lexer lexer(input);
         auto tokens = lexer.lex();
