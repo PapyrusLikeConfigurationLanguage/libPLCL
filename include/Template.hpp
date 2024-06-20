@@ -16,16 +16,7 @@ namespace PapyrusLikeConfigurationLanguage::Template {
         Boolean
     };
 
-    inline std::string typeToString(Type type) {
-        switch (type) {
-            case Type::String:
-                return "String";
-            case Type::Integer:
-                return "Integer";
-            case Type::Boolean:
-                return "Boolean";
-        }
-    }
+    std::string typeToString(Type type);
 
     struct Template;
     struct TemplateList;
