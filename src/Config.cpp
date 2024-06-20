@@ -47,47 +47,47 @@ namespace PapyrusLikeConfigurationLanguage::Config {
         }
     }
 
-    /* void verifyHelper(ConfigElement &configElement, Template::TemplateElement &templateElement, bool strict) { */
-    /*     if (configElement.type != templateElement.type) { */
-    /*         throw std::runtime_error(std::format("Type mismatch: expected {}, got {}", templateElement.type, configElement.type)); */
-    /*     } */
-    /*     for (auto &attribute : templateElement.attributes) { */
-    /*         bool found = false; */
-    /*         for (uint32_t i = 0; i < configElement.attributes.size(); ++i) { */
-    /*             if (configElement.attributes[i]->name == attribute->name) { */
-    /*                 found = true; */
-    /*                 if ((std::holds_alternative<std::string>(configElement.attributes[i]->value) && attribute->type != Template::Type::String) || */
-    /*                     (std::holds_alternative<int64_t>(configElement.attributes[i]->value) && attribute->type != Template::Type::Integer) || */
-    /*                     (std::holds_alternative<bool>(configElement.attributes[i]->value) && attribute->type != Template::Type::Boolean)) { */
-    /*                     std::string value; */ 
-    /*                     if (std::holds_alternative<std::string>(configElement.attributes[i]->value)) { */
-    /*                         value = std::get<std::string>(configElement.attributes[i]->value); */
-    /*                     } else if (std::holds_alternative<int64_t>(configElement.attributes[i]->value)) { */
-    /*                         value = std::to_string(std::get<int64_t>(configElement.attributes[i]->value)); */
-    /*                     } else if (std::holds_alternative<bool>(configElement.attributes[i]->value)) { */
-    /*                         value = std::get<bool>(configElement.attributes[i]->value) ? "true" : "false"; */
-    /*                     } */
-    /*                     throw std::runtime_error(std::format("Type mismatch: expected {}, got value {}", Template::typeToString(attribute->type), value)); */
-    /*                 } */
-    /*                 configElement.attributes.erase(configElement.attributes.begin() + i); */
-    /*             } */
-    /*         } */
-    /*         if (!found && attribute->required) { */
-    /*             throw std::runtime_error(std::format("Missing required attribute: {}", attribute->name)); */
-    /*         } */
-    /*     } */
-    /* } */
+    void verifyHelper(ConfigElement &configElement, Template::TemplateElement &templateElement, bool strict) {
+        if (configElement.type != templateElement.type) {
+            throw std::runtime_error(std::format("Type mismatch: expected {}, got {}", templateElement.type, configElement.type));
+        }
+        for (auto &attribute : templateElement.attributes) {
+            bool found = false;
+            for (uint32_t i = 0; i < configElement.attributes.size(); ++i) {
+                if (configElement.attributes[i]->name == attribute->name) {
+                    found = true;
+                    if ((std::holds_alternative<std::string>(configElement.attributes[i]->value) && attribute->type != Template::Type::String) ||
+                        (std::holds_alternative<int64_t>(configElement.attributes[i]->value) && attribute->type != Template::Type::Integer) ||
+                        (std::holds_alternative<bool>(configElement.attributes[i]->value) && attribute->type != Template::Type::Boolean)) {
+                        std::string value; 
+                        if (std::holds_alternative<std::string>(configElement.attributes[i]->value)) {
+                            value = std::get<std::string>(configElement.attributes[i]->value);
+                        } else if (std::holds_alternative<int64_t>(configElement.attributes[i]->value)) {
+                            value = std::to_string(std::get<int64_t>(configElement.attributes[i]->value));
+                        } else if (std::holds_alternative<bool>(configElement.attributes[i]->value)) {
+                            value = std::get<bool>(configElement.attributes[i]->value) ? "true" : "false";
+                        }
+                        throw std::runtime_error(std::format("Type mismatch: expected {}, got value {}", Template::typeToString(attribute->type), value));
+                    }
+                    configElement.attributes.erase(configElement.attributes.begin() + i);
+                }
+            }
+            if (!found && attribute->required) {
+                throw std::runtime_error(std::format("Missing required attribute: {}", attribute->name));
+            }
+        }
+    }
 
-    /* void Config::verify(Template::Template &configTemplate, bool strict) { */
-    /*     auto template_copy = configTemplate; */
-    /*     auto config_copy = *this; */
+    void Config::verify(Template::Template &configTemplate, bool strict) {
+        auto template_copy = configTemplate;
+        auto config_copy = *this;
 
-    /*     uint32_t element_index = 0; */
+        uint32_t element_index = 0;
 
-    /*     while (element_index < config_copy.elements.size()) { */
+        while (element_index < config_copy.elements.size()) {
             
-    /*     } */
-    /* } */
+        }
+    }
 
     ConfigList::ConfigList(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::ConfigList) {

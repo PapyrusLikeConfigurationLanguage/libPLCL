@@ -8,7 +8,7 @@
 #include <variant>
 
 #include "Lexer.hpp"
-/* #include "Template.hpp" */
+#include "Template.hpp"
 #include "Helper.hpp"
 
 namespace PapyrusLikeConfigurationLanguage::Config {
@@ -30,7 +30,7 @@ namespace PapyrusLikeConfigurationLanguage::Config {
             : name(std::move(name)), imports(std::move(imports)), elements(std::move(elements)), lists(std::move(lists)) {};
 
         [[maybe_unused]] static Config fromString(const std::string& input);
-        /* [[maybe_unused]] void verify(Template::Template& configTemplate, bool strict); */
+        [[maybe_unused]] void verify(Template::Template& configTemplate, bool strict);
     };
 
     struct ConfigList {
