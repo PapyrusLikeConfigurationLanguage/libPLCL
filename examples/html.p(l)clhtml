@@ -1,0 +1,55 @@
+ConfigName HTML
+
+ConfigElement Doctype
+    Content = "html"
+endConfigElement
+
+ConfigElement Html
+    ConfigList Elements
+        ConfigListElement 0
+            ConfigElement Head
+                ConfigList Elements
+                    ConfigListElement 0
+                        ConfigElement Title
+                            ConfigList Elements
+                                ConfigListElement 0
+                                    ConfigElement _Text
+                                        Content = "example"
+                                    endConfigElement
+                                endConfigListElement
+                            endConfigList
+                        endConfigElement
+                    endConfigListElement
+                endConfigList
+            endConfigElement
+        endConfigListElement
+        ConfigListElement 1
+            ConfigElement Body
+                ConfigList Elements
+                    ConfigListElement 0
+                        ConfigElement H1
+                            ConfigList Elements
+                                ConfigListElement 0
+                                    ConfigElement _Text
+                                        Content = "example"
+                                    endConfigElement
+                                endConfigListElement
+                            endConfigList
+                        endConfigElement
+                    endConfigListElement
+                    ConfigListElement 1
+                        ConfigElement P
+                            ConfigList Elements
+                                ConfigListElement 0
+                                    ConfigElement _Text
+                                        Content = "this is an example"
+                                    endConfigElement
+                                endConfigListElement
+                            endConfigList
+                        endConfigElement
+                    endConfigListElement
+                endConfigList
+            endConfigElement
+        endConfigListElement
+    endConfigList
+endConfigElement

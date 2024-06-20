@@ -1,0 +1,30 @@
+TemplateName Example
+
+TemplateElement thing
+    TemplateElementOptions
+        required = true
+    endTemplateElementOptions
+    string exampleAttribute required
+    TemplateList
+        TemplateListElement 0
+            TemplateElement thingy
+                string a required 
+            endTemplateElement
+        endTemplateListElement
+    endTemplateList
+endTemplateElement
+
+TemplateList multipleThings
+    TemplateListOptions
+        required = true
+        minimumCount = 2
+        maximumCount = 2
+    endTemplateListOptions
+    TemplateListElement 0
+        TemplateElement thing2
+            integer a
+            boolean b
+            string c default "c"
+        endTemplateElement
+    endTemplateListElement
+endTemplateList

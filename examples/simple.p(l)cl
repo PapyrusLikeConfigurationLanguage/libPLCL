@@ -1,0 +1,27 @@
+ConfigName Example
+
+Import "simple.p(l)cltem"
+
+ConfigElement thing
+    exampleAttribute = "string"
+    ConfigList Nested
+        ConfigListElement 0
+            ConfigElement thingy
+                a = "a"
+            endConfigElement
+        endConfigListElement
+    endConfigList
+endConfigElement
+
+ConfigList multipleThings
+    ConfigListElement 0
+        ConfigElement thing2
+            a = 1
+        endConfigElement
+    endConfigListElement
+    ConfigListElement 1
+        ConfigElement thing2
+            b = false
+        endConfigElement
+    endConfigListElement
+endConfigList

@@ -1,0 +1,183 @@
+%!TEX root = ./main.tex
+%!TEX program = xelatex
+
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage{inputenc}
+\usepackage{parskip}
+\usepackage{geometry}
+\usepackage{bookmark}
+\usepackage{titlesec}
+\usepackage[main=british,polish]{babel}
+\usepackage{datetime2}
+\usepackage[protrusion, expansion, tracking]{microtype}
+\usepackage[type={CC}, modifier={by-nc-sa}, version={4.0}]{doclicense}
+
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}\\}
+
+\geometry{a4paper, margin=1.75cm}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=blue,
+}
+\bibliographystyle{plain}
+
+\title{%
+    Papyrus (Like) Configuration Language Specification \\
+    \large Version CURRENT
+}
+\author{\foreignlanguage{polish}{Natalia Łotocka} - \url{https://natawie.gay}}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+
+    \section{Introduction}
+    \subsection{Why is this?}
+    One day coming back from school I had a thought: "A web server that for some reason runs in Skyrim". \\
+    So like the masochistic \& sadistic little gremlin that I am, I started working on it. \\
+    I got to the point where I had an extremely simple HTTP/1.1 (only) server (it only supported GET and HEAD requests), but now I wanted to have a way of configuring it. \\
+    My first thought was to use something... normal? sensible? logical? But then I remembered what I was working on and thought nothing like that would fit the \textbf{vibe}. \\
+    For a split second I thought about using XML, but I'm not that insane, so I created something that's most definitely way worse than XML. \\
+    Basically, this has absolutely no reason to exist. \\
+    But it does. \\
+    I'm sorry (not really).
+
+    \subsection{Why would I use this?}
+    Masochism. \\
+    Hatred of oneself. \\
+    Boredom. \\
+    You're creating a mod for a BGS game and want to spread the "joy" of Papyrus to your users. \\
+    You can tell this is \href{https://github.com/natawie/PapyrusLikeConfigurationLanguageToHTML}{the future of web development}.
+
+    \subsection{Why does this specification exist?}
+    No reason. \\
+    I was just bored. \\
+    Also, I don't know when to end a bit.
+
+    \newpage
+
+    \section{Syntax}
+    \subsection{Shared}
+
+    \subsubsection{General}
+    All keywords are case-insensitive. \\
+    Indentation is ignored.
+
+    \subsubsection{Comments}
+    Comments start with a semicolon and end at the end of the line.
+
+    \subsubsection{Types}
+    There are currently 3 supported types: strings, integers, and booleans. \\
+    For templates, their keywords are \texttt{string}, \texttt{int}, and \texttt{bool} respectively.
+
+    \subsubsection{Values}
+    Parsers are expected to error out if a value is of the wrong type.
+   
+    \paragraph{Strings}
+    Strings are enclosed in double quotes. \\
+    They can contain anything except for a double quote unless escaped with a backslash.
+
+    \paragraph{Integers}
+    Numbers up to the 64-bit signed integer limit are supported.
+
+    \paragraph{Booleans}
+    Booleans are represented by the \texttt{true} and \texttt{false} keywords.
+
+    \subsubsection{Names}
+    Names are used to identify attributes and lists. \\
+    They're case-insensitive and have to start with either an underscore or a letter, but can contain numbers as well.
+
+    \newpage
+
+    \subsection{Configuration Only}
+
+    \subsubsection{Configuration Attributes}
+    Configuration attributes are key-value pairs. \\
+    They're defined by a name, an equals sign, and a value. \\
+    They can be of any type.
+
+    \subsubsection{Imports}
+    Imports are only for possible dynamic error-checking or autocompletion. \\
+    They're defined by the \texttt{Import} keyword followed by a string value, either a path or a URL to a template.
+
+    \subsubsection{Configuration Elements}
+    Elements are akin to objects or structs in other languages. \\
+    They're defined by the \texttt{ConfigElement} keyword followed by a name, an optional list of configuration attributes, an optional list of other elements, and the \texttt{EndConfigElement} keyword. \\
+    Attributes are written in the main body of the element, unlike elements which need to be written in a \texttt{ConfigList}.
+
+    \subsubsection{Configuration Lists}
+    Lists are a collection of elements. \\
+    Each \texttt{ConfigElement} has to be wrapped in a \texttt{ConfigListElement}/\texttt{EndConfigListElement} block. \\
+    Each \texttt{ConfigListElement} has to have an ID - an integer value - after the first keyword. \\
+    The IDs have to be unique, sequential, and start from 0. \\
+    A \texttt{ConfigListElement} block can only contain one element. \\
+    Lists are defined by the \texttt{ConfigList} keyword followed by a name, an optional list of \texttt{ConfigElement}s in \texttt{ConfigListElement} blocks, and the \texttt{EndConfigList} keyword.
+
+    \subsubsection{Configuration}
+    A Configuration is a collection of \texttt{ConfigElement}s and \texttt{ConfigList}s. \\
+    It starts with the \texttt{ConfigName} keyword followed by a name. \\
+    It can contain multiple imports, elements, and lists.
+
+    \newpage
+
+    \subsection{Templates Only}
+
+    \subsubsection{Options}
+    Options are literally just configuration attributes. \\
+    The only difference is that they're written in a special block. \\
+    The options that are currently supported are: \texttt{required}, \texttt{minimumCount}, and \texttt{maximumCount}. \\
+    \texttt{required} is a boolean, \texttt{minimumCount} and \texttt{maximumCount} are integers and they only apply to lists. \\
+    The block is defined by either the \texttt{TemplateElementOptions} or the \texttt{TemplateListOptions} keyword depending on where it's used, a list of options, and either the \\ \texttt{EndTemplateElementOptions} or the \texttt{EndTemplateListOptions} keyword respectively.
+
+    \subsubsection{Template Attributes}
+    Template attributes are type declarations of configuration attributes. \\
+    They're defined by a type, a name, an optional required keyword, and an optional default keyword followed by a value.
+
+    \subsubsection{Template Elements}
+    Elements are akin to objects or structs in other languages. \\
+    They're defined by the \texttt{TemplateElement} keyword followed by a name, an optional options block, an optional list of template attributes, an optional list of other elements, and the \texttt{EndTemplateElement} keyword. \\
+    Attributes are written in the main body of the element, unlike elements which need to be written in a \texttt{TemplateList}.
+
+    \subsubsection{Template Lists}
+    Lists are a collection of elements. \\
+    Each \texttt{TemplateElement} has to be wrapped in a \texttt{TemplateListElement}/\texttt{EndTemplateListElement} block. \\
+    Each \texttt{TemplateListElement} has to have an ID - an integer value - after the first keyword. \\
+    The IDs have to be unique, and at least one \texttt{TemplateListElement} has to have an ID of 0. \\
+    If a \texttt{ConfigListElement} has an ID that's not defined in a \texttt{TemplateList}, it takes the attributes of the element with the ID closest to it that's lower than it. \\
+    A \texttt{TemplateListElement} block can only contain one \texttt{TemplateElement}. \\
+    Lists are defined by the \texttt{TemplateList} keyword followed by a name, an optional list of \\ \texttt{TemplateElement}s in \texttt{TemplateListElement} blocks, and the \texttt{EndTemplateList} keyword.
+
+    \subsubsection{Template}
+    A Template is a collection of \texttt{TemplateElement}s and \texttt{TemplateList}s. \\
+    It starts with the \texttt{TemplateName} keyword followed by a name, and after that, it can contain multiple elements and lists.
+
+    \newpage
+
+    \section{Example}
+    \begin{minipage}[t]{0.5\textwidth}
+        \subsection{Configuration}
+        \verbatiminput{../examples/simple.p(l)cl}
+    \end{minipage}
+    \begin{minipage}[t]{0.5\textwidth}
+        \subsection{Template}
+        \verbatiminput{../examples/simple.p(l)cltem}
+    \end{minipage}
+    % \subsection{Configuration}
+    % \verbatiminput{../examples/simple.p(l)cl}
+    % \newpage
+    % \subsection{Template}
+    % \verbatiminput{../examples/simple.p(l)cltem}
+
+    \newpage
+
+    \section{Licence}
+    \doclicenseThis
+\end{document}

@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [-Wall, -Wextra, -std=c++23]
+
+Diagnostics:
+  ClangTidy:
+    Add: ['bugprone-*', 'modernize-*', 'performance-*', 'readability-*']
+    Remove: ['modernize-use-trailing-return-type']
