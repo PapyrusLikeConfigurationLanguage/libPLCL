@@ -4,4 +4,4 @@ CompileFlags:
 Diagnostics:
   ClangTidy:
     Add: ['bugprone-*', 'modernize-*', 'performance-*', 'readability-*']
-    Remove: ['modernize-use-trailing-return-type']
+    Remove: ['modernize-use-trailing-return-type', 'readability-implicit-bool-conversion']

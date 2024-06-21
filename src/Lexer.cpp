@@ -138,16 +138,16 @@ namespace PapyrusLikeConfigurationLanguage {
             this->next();
             return {TokenType::StringLiteral, value, line, column};
         }
-        if (std::isdigit(c) == 1 || c == '-') {
+        if (std::isdigit(c) || c == '-') {
             std::string value;
-            while (std::isdigit(this->peek()) == 1) {
+            while (std::isdigit(this->peek())) {
                 value += static_cast<char>(this->next());
             }
             return {TokenType::NumberLiteral, value, line, column};
         }
-        if (std::isalpha(c) == 1 || c == '_') {
+        if (std::isalpha(c) || c == '_') {
             std::string value;
-            while (std::isalnum(this->peek()) == 1 || this->peek() == '_') {
+            while (std::isalnum(this->peek()) || this->peek() == '_') {
                 value += static_cast<char>(this->next());
             }
             if (Helper::iequals(value, "true")) {
