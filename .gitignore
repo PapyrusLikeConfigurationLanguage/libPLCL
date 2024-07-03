@@ -1,0 +1,15 @@
+.idea/
+cmake-build-*/
+spec/*.aux
+spec/*.log
+spec/*.pdf
+spec/*.out
+spec/*.toc
+spec/*.synctex.gz
+spec/*.fdb_latexmk
+spec/*.fls
+spec/*.dvi
+spec/*.bbl
+spec/*.blg
+spec/*.bcf
+spec/*.xdv
