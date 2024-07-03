@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <format>
 #include <utility>
-#include "Template.hpp"
+#include "libPapyrusLikeConfigurationLanguage/Template.hpp"
 
 namespace PapyrusLikeConfigurationLanguage::Template {
     std::string typeToString(Type type) {

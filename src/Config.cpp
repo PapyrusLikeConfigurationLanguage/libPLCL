@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <stdexcept>
 #include <format>
-#include "Config.hpp"
+#include "libPapyrusLikeConfigurationLanguage/Config.hpp"
 
 namespace PapyrusLikeConfigurationLanguage::Config {
     [[maybe_unused]] Config Config::fromString(const std::string &input) {
