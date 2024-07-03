@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#include "../include/Lexer.hpp"
-#include "../include/Helper.hpp"
+#include "Lexer.hpp"
+#include "Helper.hpp"
 
 namespace PapyrusLikeConfigurationLanguage {
-
     std::string Lexer::tokenTypeToString(Lexer::TokenType type) {
         switch (type) {
             case Lexer::TokenType::EndOfFile:

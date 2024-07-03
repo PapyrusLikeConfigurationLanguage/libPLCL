@@ -6,10 +6,8 @@
 #include <string>
 #include <vector>
 #include <variant>
-
 #include "Lexer.hpp"
 #include "Template.hpp"
-#include "Helper.hpp"
 
 namespace PapyrusLikeConfigurationLanguage::Config {
     struct Config;

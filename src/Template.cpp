@@ -3,10 +3,9 @@
 #include <stdexcept>
 #include <format>
 #include <utility>
-#include "../include/Template.hpp"
+#include "Template.hpp"
 
 namespace PapyrusLikeConfigurationLanguage::Template {
-
     std::string typeToString(Type type) {
         switch (type) {
             case Type::String:
