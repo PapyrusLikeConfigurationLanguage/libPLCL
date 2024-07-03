@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#include "libPapyrusLikeConfigurationLanguage/Lexer.hpp"
-#include "libPapyrusLikeConfigurationLanguage/Helper.hpp"
+#include <Lexer.hpp>
+#include <Generic.hpp>
 
 namespace PapyrusLikeConfigurationLanguage {
     std::string Lexer::tokenTypeToString(Lexer::TokenType type) {
@@ -149,76 +149,76 @@ namespace PapyrusLikeConfigurationLanguage {
             while (std::isalnum(this->peek()) || this->peek() == '_') {
                 value += static_cast<char>(this->next());
             }
-            if (Helper::iequals(value, "true")) {
+            if (Generic::iequals(value, "true")) {
                 return {TokenType::BooleanLiteral, "true", line, column};
             }
-            if (Helper::iequals(value, "false")) {
+            if (Generic::iequals(value, "false")) {
                 return {TokenType::BooleanLiteral, "false", line, column};
             }
-            if (Helper::iequals(value, "import")) {
+            if (Generic::iequals(value, "import")) {
                 return {TokenType::Import, "", line, column};
             }
-            if (Helper::iequals(value, "string")) {
+            if (Generic::iequals(value, "string")) {
                 return {TokenType::String, "", line, column};
             }
-            if (Helper::iequals(value, "int")) {
+            if (Generic::iequals(value, "int")) {
                 return {TokenType::Integer, "", line, column};
             }
-            if (Helper::iequals(value, "bool")) {
+            if (Generic::iequals(value, "bool")) {
                 return {TokenType::Boolean, "", line, column};
             }
-            if (Helper::iequals(value, "configname")) {
+            if (Generic::iequals(value, "configname")) {
                 return {TokenType::ConfigName, "", line, column};
             }
-            if (Helper::iequals(value, "configelement")) {
+            if (Generic::iequals(value, "configelement")) {
                 return {TokenType::ConfigElement, "", line, column};
             }
-            if (Helper::iequals(value, "endconfigelement")) {
+            if (Generic::iequals(value, "endconfigelement")) {
                 return {TokenType::EndConfigElement, "", line, column};
             }
-            if (Helper::iequals(value, "configlistelement")) {
+            if (Generic::iequals(value, "configlistelement")) {
                 return {TokenType::ConfigListElement, "", line, column};
             }
-            if (Helper::iequals(value, "endconfiglistelement")) {
+            if (Generic::iequals(value, "endconfiglistelement")) {
                 return {TokenType::EndConfigListElement, "", line, column};
             }
-            if (Helper::iequals(value, "configlist")) {
+            if (Generic::iequals(value, "configlist")) {
                 return {TokenType::ConfigList, "", line, column};
             }
-            if (Helper::iequals(value, "endconfiglist")) {
+            if (Generic::iequals(value, "endconfiglist")) {
                 return {TokenType::EndConfigList, "", line, column};
             }
-            if (Helper::iequals(value, "templatename")) {
+            if (Generic::iequals(value, "templatename")) {
                 return {TokenType::TemplateName, "", line, column};
             }
-            if (Helper::iequals(value, "templateelement")) {
+            if (Generic::iequals(value, "templateelement")) {
                 return {TokenType::TemplateElement, "", line, column};
             }
-            if (Helper::iequals(value, "endtemplateelement")) {
+            if (Generic::iequals(value, "endtemplateelement")) {
                 return {TokenType::EndTemplateElement, "", line, column};
             }
-            if (Helper::iequals(value, "templatelistelement")) {
+            if (Generic::iequals(value, "templatelistelement")) {
                 return {TokenType::TemplateListElement, "", line, column};
             }
-            if (Helper::iequals(value, "endtemplatelistelement")) {
+            if (Generic::iequals(value, "endtemplatelistelement")) {
                 return {TokenType::EndTemplateListElement, "", line, column};
             }
-            if (Helper::iequals(value, "templatelist")) {
+            if (Generic::iequals(value, "templatelist")) {
                 return {TokenType::TemplateList, "", line, column};
             }
-            if (Helper::iequals(value, "endtemplatelist")) {
+            if (Generic::iequals(value, "endtemplatelist")) {
                 return {TokenType::EndTemplateList, "", line, column};
             }
-            if (Helper::iequals(value, "templateelementoptions")) {
+            if (Generic::iequals(value, "templateelementoptions")) {
                 return {TokenType::TemplateElementOptions, "", line, column};
             }
-            if (Helper::iequals(value, "endtemplateelementoptions")) {
+            if (Generic::iequals(value, "endtemplateelementoptions")) {
                 return {TokenType::EndTemplateElementOptions, "", line, column};
             }
-            if (Helper::iequals(value, "templatelistoptions")) {
+            if (Generic::iequals(value, "templatelistoptions")) {
                 return {TokenType::TemplateListOptions, "", line, column};
             }
-            if (Helper::iequals(value, "endtemplatelistoptions")) {
+            if (Generic::iequals(value, "endtemplatelistoptions")) {
                 return {TokenType::EndTemplateListOptions, "", line, column};
             }
             return {TokenType::Name, value, line, column};
@@ -226,4 +226,4 @@ namespace PapyrusLikeConfigurationLanguage {
         this->next();
         return {TokenType::Unknown, std::string(1, static_cast<char>(c)), line, column};
     }
-} // PapyrusLikeConfigurationLanguage
+}

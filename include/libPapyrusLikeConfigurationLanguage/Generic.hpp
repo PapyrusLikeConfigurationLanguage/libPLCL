@@ -1,16 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#ifndef PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_HELPER_HPP
-#define PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_HELPER_HPP
-
-
+#pragma once
 #include <cctype>
 #include <string_view>
 #include <algorithm>
 #include <variant>
 #include <stdexcept>
 
-namespace PapyrusLikeConfigurationLanguage::Helper {
+namespace PapyrusLikeConfigurationLanguage::Generic {
     using ValueType = std::variant<std::string, int64_t, bool>;
 
     static bool iequals(std::string_view lhs, std::string_view rhs) {
@@ -23,6 +20,3 @@ namespace PapyrusLikeConfigurationLanguage::Helper {
         return std::runtime_error("Expected " + std::string(expected) + " but found " + std::string(found) + " at line " + std::to_string(line) + " column " + std::to_string(column));
     }
 }
-
-
-#endif //PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_HELPER_HPP

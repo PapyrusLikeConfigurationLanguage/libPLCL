@@ -1,13 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#ifndef PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_LEXER_HPP
-#define PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_LEXER_HPP
-
+#pragma once
 #include <vector>
 #include <string>
 
 namespace PapyrusLikeConfigurationLanguage {
-
     class Lexer {
     public:
         enum class TokenType {
@@ -70,7 +67,4 @@ namespace PapyrusLikeConfigurationLanguage {
         void skipComment();
         Token nextToken();
     };
-
-} // PapyrusLikeConfigurationLanguage
-
-#endif //PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_LEXER_HPP
+}

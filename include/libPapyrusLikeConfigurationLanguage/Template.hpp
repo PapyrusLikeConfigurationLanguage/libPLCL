@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#ifndef PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_TEMPLATE_HPP
-#define PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_TEMPLATE_HPP
-
+#pragma once
 #include <string>
 #include <vector>
 
-#include "Helper.hpp"
+#include "Generic.hpp"
 #include "Lexer.hpp"
 
 namespace PapyrusLikeConfigurationLanguage::Template {
@@ -18,7 +16,7 @@ namespace PapyrusLikeConfigurationLanguage::Template {
 
     std::string typeToString(Type type);
 
-    struct Template;
+    struct TemplateRoot;
     struct TemplateList;
     struct TemplateListElement;
     struct TemplateElement;
@@ -26,17 +24,17 @@ namespace PapyrusLikeConfigurationLanguage::Template {
     struct TemplateOption;
     struct TemplateAttribute;
 
-    struct Template {
+    struct TemplateRoot {
         std::string name;
         std::vector<TemplateElement*> elements;
         std::vector<TemplateList*> lists;
 
-        Template() = default;
-        explicit Template(std::vector<Lexer::Token>& tokens);
-        Template(std::string name, std::vector<TemplateElement*> elements, std::vector<TemplateList*> lists)
+        TemplateRoot() = default;
+        explicit TemplateRoot(std::vector<Lexer::Token>& tokens);
+        TemplateRoot(std::string name, std::vector<TemplateElement*> elements, std::vector<TemplateList*> lists)
             : name(std::move(name)), elements(std::move(elements)), lists(std::move(lists)) {};
 
-        [[maybe_unused]] static Template fromString(const std::string& input);
+        [[maybe_unused]] static TemplateRoot fromString(const std::string& input);
     };
 
     struct TemplateList {
@@ -83,11 +81,11 @@ namespace PapyrusLikeConfigurationLanguage::Template {
 
     struct TemplateOption {
         std::string name;
-        Helper::ValueType value;
+        Generic::ValueType value;
 
         TemplateOption() = default;
         TemplateOption(std::vector<Lexer::Token>& tokens, size_t& index);
-        TemplateOption(std::string name, Helper::ValueType value)
+        TemplateOption(std::string name, Generic::ValueType value)
             : name(std::move(name)), value(std::move(value)) {};
     };
 
@@ -103,6 +101,4 @@ namespace PapyrusLikeConfigurationLanguage::Template {
             : type(type), name(std::move(name)), defaultValue(defaultValue), required(required) {};
     };
 
-} // PapyrusLikeConfigurationLanguage
-
-#endif //PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_TEMPLATE_HPP
+}

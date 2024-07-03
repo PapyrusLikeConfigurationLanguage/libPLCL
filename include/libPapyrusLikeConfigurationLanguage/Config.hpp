@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#ifndef PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_CONFIG_HPP
-#define PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_CONFIG_HPP
-
+#pragma once
 #include <string>
 #include <vector>
 #include <variant>
@@ -16,19 +14,19 @@ namespace PapyrusLikeConfigurationLanguage::Config {
     struct ConfigElement;
     struct ConfigElementAttribute;
 
-    struct Config {
+    struct ConfigRoot {
         std::string name;
         std::vector<std::string> imports;
         std::vector<ConfigElement*> elements;
         std::vector<ConfigList*> lists;
 
-        Config() = default;
-        explicit Config(std::vector<Lexer::Token>& tokens);
-        [[maybe_unused]] Config(std::string name, std::vector<std::string> imports, std::vector<ConfigElement*> elements, std::vector<ConfigList*> lists)
+        ConfigRoot() = default;
+        explicit ConfigRoot(std::vector<Lexer::Token>& tokens);
+        [[maybe_unused]] ConfigRoot(std::string name, std::vector<std::string> imports, std::vector<ConfigElement*> elements, std::vector<ConfigList*> lists)
             : name(std::move(name)), imports(std::move(imports)), elements(std::move(elements)), lists(std::move(lists)) {};
 
-        [[maybe_unused]] static Config fromString(const std::string& input);
-        [[maybe_unused]] void verify(Template::Template& configTemplate, bool strict);
+        [[maybe_unused]] static ConfigRoot fromString(const std::string& input);
+        [[maybe_unused]] void verify(Template::TemplateRoot& configTemplate, bool strict);
     };
 
     struct ConfigList {
@@ -64,13 +62,11 @@ namespace PapyrusLikeConfigurationLanguage::Config {
 
     struct ConfigElementAttribute {
         std::string name;
-        Helper::ValueType value;
+        Generic::ValueType value;
 
         ConfigElementAttribute() = default;
         ConfigElementAttribute(std::vector<Lexer::Token>& tokens, size_t& index);
         ConfigElementAttribute(std::string name, std::variant<std::string, int64_t, bool> value)
             : name(std::move(name)), value(std::move(value)) {};
     };
-} // PapyrusLikeConfigurationLanguage
-
-#endif //PAPYRUSLIKECONFIGURATIONLANGUAGE_CPP_CONFIG_HPP
+}

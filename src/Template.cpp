@@ -17,20 +17,20 @@ namespace PapyrusLikeConfigurationLanguage::Template {
         }
     }
 
-    [[maybe_unused]] Template Template::fromString(const std::string &input) {
+    [[maybe_unused]] TemplateRoot TemplateRoot::fromString(const std::string &input) {
         Lexer lexer(input);
         auto tokens = lexer.lex();
-        return Template(tokens);
+        return TemplateRoot(tokens);
     }
 
-    Template::Template(std::vector<Lexer::Token> &tokens) {
+    TemplateRoot::TemplateRoot(std::vector<Lexer::Token> &tokens) {
         size_t index = 0;
         if (tokens[index].type != Lexer::TokenType::TemplateName) {
-            throw Helper::genericExpectedError(R"("TemplateName")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError(R"("TemplateName")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
         }
         index++;
         if (tokens[index].type != Lexer::TokenType::Name) {
-            throw Helper::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
         }
         this->name = tokens[index].value;
         index++;
@@ -52,12 +52,12 @@ namespace PapyrusLikeConfigurationLanguage::Template {
 
     TemplateList::TemplateList(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::TemplateList) {
-            throw Helper::genericExpectedError(R"("TemplateList")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError(R"("TemplateList")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
             //throw std::runtime_error(std::format("Expected \"TemplateList\" at line {}, column {}, got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
         }
         index++;
         if (tokens[index].type != Lexer::TokenType::Name) {
-            throw Helper::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
             //throw std::runtime_error(std::format("Expected Name at line {}, column {}, got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
         }
         this->type = tokens[index].value;
@@ -84,12 +84,12 @@ namespace PapyrusLikeConfigurationLanguage::Template {
 
     TemplateListElement::TemplateListElement(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::TemplateListElement) {
-            throw Helper::genericExpectedError(R"("TemplateListElement")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError(R"("TemplateListElement")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
             //throw std::runtime_error(std::format("Expected \"TemplateListElement\" at line {}, column {}, but got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
         }
         index++;
         if (tokens[index].type != Lexer::TokenType::NumberLiteral) {
-            throw Helper::genericExpectedError("NumberLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError("NumberLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
             //throw std::runtime_error(std::format("Expected NumberLiteral at line {}, column {}, but got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
         }
         this->id = std::stoll(tokens[index].value);
@@ -110,12 +110,12 @@ namespace PapyrusLikeConfigurationLanguage::Template {
 
     TemplateElement::TemplateElement(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::TemplateElement) {
-            throw Helper::genericExpectedError(R"("TemplateElement")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError(R"("TemplateElement")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
             //throw std::runtime_error(std::format("Expected \"TemplateElement\" at line {}, column {}, but got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
         }
         index++;
         if (tokens[index].type != Lexer::TokenType::Name) {
-            throw Helper::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
             //throw std::runtime_error(std::format("Expected Name at line {}, column {}, but got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
         }
         this->type = tokens[index].value;
@@ -157,11 +157,11 @@ namespace PapyrusLikeConfigurationLanguage::Template {
                 this->type = Type::Boolean;
                 break;
             [[unlikely]] default:
-                throw Helper::genericExpectedError("String, Integer, or Boolean", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+                throw Generic::genericExpectedError("String, Integer, or Boolean", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
         }
         index++;
         if (tokens[index].type != Lexer::TokenType::Name) {
-            throw Helper::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
         }
         this->name = tokens[index].value;
         index++;
@@ -177,19 +177,19 @@ namespace PapyrusLikeConfigurationLanguage::Template {
                 switch (this->type) {
                     case Type::String:
                         if (tokens[index].type != Lexer::TokenType::StringLiteral) {
-                            throw Helper::genericExpectedError("StringLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+                            throw Generic::genericExpectedError("StringLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
                         }
                         this->defaultValue = new std::string(tokens[index].value);
                         break;
                     case Type::Integer:
                         if (tokens[index].type != Lexer::TokenType::NumberLiteral) {
-                            throw Helper::genericExpectedError("NumberLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+                            throw Generic::genericExpectedError("NumberLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
                         }
                         this->defaultValue = new std::string(tokens[index].value);
                         break;
                     case Type::Boolean:
                         if (tokens[index].type != Lexer::TokenType::BooleanLiteral) {
-                            throw Helper::genericExpectedError("BooleanLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+                            throw Generic::genericExpectedError("BooleanLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
                         }
                         this->defaultValue = new std::string(tokens[index].value);
                         break;
@@ -203,7 +203,7 @@ namespace PapyrusLikeConfigurationLanguage::Template {
 
     TemplateOptions::TemplateOptions(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::TemplateElementOptions && tokens[index].type != Lexer::TokenType::TemplateListOptions) {
-            throw Helper::genericExpectedError(R"("TemplateElementOptions" or "TemplateListOptions")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError(R"("TemplateElementOptions" or "TemplateListOptions")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
         }
         index++;
         while (index < tokens.size()) {
@@ -213,23 +213,23 @@ namespace PapyrusLikeConfigurationLanguage::Template {
                 index++;
                 return;
             } else {
-                throw Helper::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+                throw Generic::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
             }
         }
     }
 
     TemplateOption::TemplateOption(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::Name) {
-            throw Helper::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
         }
         this->name = tokens[index].value;
         index++;
         if (tokens[index].type != Lexer::TokenType::Equals) {
-            throw Helper::genericExpectedError("=", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError("=", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
         }
         index++;
         if (tokens[index].type != Lexer::TokenType::StringLiteral && tokens[index].type != Lexer::TokenType::NumberLiteral && tokens[index].type != Lexer::TokenType::BooleanLiteral) {
-            throw Helper::genericExpectedError("StringLiteral, NumberLiteral, or BooleanLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+            throw Generic::genericExpectedError("StringLiteral, NumberLiteral, or BooleanLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
         }
         switch (tokens[index].type) {
             case Lexer::TokenType::StringLiteral:
@@ -247,4 +247,4 @@ namespace PapyrusLikeConfigurationLanguage::Template {
         }
         index++;
     }
-} // PapyrusLikeConfigurationLanguage
+}
