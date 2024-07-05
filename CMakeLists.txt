@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.28)
-project(PapyrusLikeConfigurationLanguage)
+project(libPLCL)
 
 include(GNUInstallDirs)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_STATIC_LIBRARY_PREFIX "")
+set(CMAKE_SHARED_LIBRARY_PREFIX "")
 
 add_library(${PROJECT_NAME})
 
