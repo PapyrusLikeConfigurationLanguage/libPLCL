@@ -176,7 +176,11 @@ namespace PapyrusLikeConfigurationLanguage::Config {
         if (tokens[index].type == Lexer::TokenType::StringLiteral) {
             this->value = tokens[index].value;
         } else if (tokens[index].type == Lexer::TokenType::NumberLiteral) {
-            this->value = std::stoll(tokens[index].value);
+            if (tokens[index].value.find('.') != std::string::npos) {
+                this->value = std::stod(tokens[index].value);
+            } else {
+                this->value = std::stoll(tokens[index].value);
+            }
         } else if (tokens[index].type == Lexer::TokenType::BooleanLiteral) {
             this->value = tokens[index].value == "true";
         } else {

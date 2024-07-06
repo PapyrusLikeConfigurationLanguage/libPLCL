@@ -6,9 +6,10 @@
 #include <algorithm>
 #include <variant>
 #include <stdexcept>
+#include <sstream>
 
 namespace PapyrusLikeConfigurationLanguage::Generic {
-    using ValueType = std::variant<std::string, int64_t, bool>;
+    using ValueType = std::variant<std::string, int64_t, double, bool>;
 
     inline static bool iequals(std::string_view lhs, std::string_view rhs) {
         return std::ranges::equal(lhs, rhs, [](unsigned char a, unsigned char b) {

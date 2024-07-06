@@ -66,7 +66,7 @@ namespace PapyrusLikeConfigurationLanguage::Config {
 
         ConfigElementAttribute() = default;
         ConfigElementAttribute(std::vector<Lexer::Token>& tokens, size_t& index);
-        ConfigElementAttribute(std::string name, std::variant<std::string, int64_t, bool> value)
+        ConfigElementAttribute(std::string name, Generic::ValueType value)
             : name(std::move(name)), value(std::move(value)) {};
     };
 }
