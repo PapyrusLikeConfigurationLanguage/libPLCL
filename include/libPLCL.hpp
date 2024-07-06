@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <variant>
-#include "libPapyrusLikeConfigurationLanguage/Lexer.hpp"
-#include "libPapyrusLikeConfigurationLanguage/Template.hpp"
-#include "libPapyrusLikeConfigurationLanguage/Generic.hpp"
-#include "libPapyrusLikeConfigurationLanguage/Config.hpp"
+#include "libPLCL/Lexer.hpp"
+#include "libPLCL/Template.hpp"
+#include "libPLCL/Generic.hpp"
+#include "libPLCL/Config.hpp"
