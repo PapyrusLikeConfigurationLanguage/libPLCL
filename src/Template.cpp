@@ -12,9 +12,12 @@ namespace PapyrusLikeConfigurationLanguage::Template {
                 return "String";
             case Type::Integer:
                 return "Integer";
+            case Type::Float:
+                return "Float";
             case Type::Boolean:
                 return "Boolean";
         }
+        return "Unreachable";
     }
 
     [[maybe_unused]] TemplateRoot TemplateRoot::fromString(const std::string &input) {
@@ -124,6 +127,7 @@ namespace PapyrusLikeConfigurationLanguage::Template {
             switch (tokens[index].type) {
                 case Lexer::TokenType::String:
                 case Lexer::TokenType::Integer:
+                case Lexer::TokenType::Float:
                 case Lexer::TokenType::Boolean:
                     this->attributes.push_back(new TemplateAttribute(tokens, index));
                     break;
@@ -153,11 +157,14 @@ namespace PapyrusLikeConfigurationLanguage::Template {
             case Lexer::TokenType::Integer:
                 this->type = Type::Integer;
                 break;
+            case Lexer::TokenType::Float:
+                this->type = Type::Float;
+                break;
             case Lexer::TokenType::Boolean:
                 this->type = Type::Boolean;
                 break;
             [[unlikely]] default:
-                throw Generic::genericExpectedError("String, Integer, or Boolean", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
+                throw Generic::genericExpectedError("String, Integer, Float, or Boolean", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
         }
         index++;
         if (tokens[index].type != Lexer::TokenType::Name) {
@@ -182,6 +189,7 @@ namespace PapyrusLikeConfigurationLanguage::Template {
                         this->defaultValue = new std::string(tokens[index].value);
                         break;
                     case Type::Integer:
+                    case Type::Float:
                         if (tokens[index].type != Lexer::TokenType::NumberLiteral) {
                             throw Generic::genericExpectedError("NumberLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
                         }

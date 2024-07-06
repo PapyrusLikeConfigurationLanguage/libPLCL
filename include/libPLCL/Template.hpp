@@ -11,6 +11,7 @@ namespace PapyrusLikeConfigurationLanguage::Template {
     enum class Type {
         String,
         Integer,
+        Float,
         Boolean
     };
 

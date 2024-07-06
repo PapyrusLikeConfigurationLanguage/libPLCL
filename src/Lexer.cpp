@@ -26,6 +26,8 @@ namespace PapyrusLikeConfigurationLanguage {
                 return "String";
             case Lexer::TokenType::Integer:
                 return "Integer";
+            case Lexer::TokenType::Float:
+                return "Float";
             case Lexer::TokenType::Boolean:
                 return "Boolean";
             case Lexer::TokenType::ConfigElement:
@@ -65,6 +67,7 @@ namespace PapyrusLikeConfigurationLanguage {
             case Lexer::TokenType::Unknown:
                 return "Unknown";
         }
+        return "Unreachable";
     }
 
     std::vector<Lexer::Token> Lexer::lex() {
@@ -139,9 +142,10 @@ namespace PapyrusLikeConfigurationLanguage {
         }
         if (std::isdigit(c) || c == '-') {
             std::string value;
-            while (std::isdigit(this->peek())) {
+            while (std::isdigit(this->peek()) || this->peek() == '.') {
                 value += static_cast<char>(this->next());
             }
+
             return {TokenType::NumberLiteral, value, line, column};
         }
         if (std::isalpha(c) || c == '_') {
@@ -163,6 +167,9 @@ namespace PapyrusLikeConfigurationLanguage {
             }
             if (Generic::iequals(value, "int")) {
                 return {TokenType::Integer, "", line, column};
+            }
+            if (Generic::iequals(value, "float")) {
+                return {TokenType::Float, "", line, column};
             }
             if (Generic::iequals(value, "bool")) {
                 return {TokenType::Boolean, "", line, column};

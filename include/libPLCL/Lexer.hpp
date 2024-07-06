@@ -17,6 +17,7 @@ namespace PapyrusLikeConfigurationLanguage {
             Import,
             String,
             Integer,
+            Float,
             Boolean,
 
             ConfigName,

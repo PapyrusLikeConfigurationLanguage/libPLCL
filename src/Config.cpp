@@ -78,7 +78,9 @@ namespace PapyrusLikeConfigurationLanguage::Config {
     //    }
     //}
 
-    void ConfigRoot::verify(Template::TemplateRoot &configTemplate, bool strict) {
+    [[maybe_unused]] void ConfigRoot::verify(Template::TemplateRoot &configTemplate, bool strict) {
+        (void)configTemplate;
+        (void)strict;
         throw std::runtime_error("Unimplemented");
         //auto template_copy = configTemplate;
         //auto config_copy = *this;
