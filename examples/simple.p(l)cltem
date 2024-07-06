@@ -5,7 +5,7 @@ TemplateElement thing
         required = true
     endTemplateElementOptions
     string exampleAttribute required
-    TemplateList
+    TemplateList thingies
         TemplateListElement 0
             TemplateElement thingy
                 string a required 
@@ -22,8 +22,8 @@ TemplateList multipleThings
     endTemplateListOptions
     TemplateListElement 0
         TemplateElement thing2
-            integer a
-            boolean b
+            int a
+            bool b
             string c default "c"
         endTemplateElement
     endTemplateListElement
