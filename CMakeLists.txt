@@ -1,14 +1,21 @@
 cmake_minimum_required(VERSION 3.28)
-project(libPLCL)
 
+project(libPLCL)
 include(GNUInstallDirs)
 
+set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_STATIC_LIBRARY_PREFIX "")
 set(CMAKE_SHARED_LIBRARY_PREFIX "")
 
 add_library(${PROJECT_NAME})
+
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/${PROJECT_NAME}.pc.in
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc
+    @ONLY
+)
 
 target_sources(${PROJECT_NAME} PRIVATE
     src/Lexer.cpp
