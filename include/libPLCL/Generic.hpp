@@ -1,16 +1,26 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #pragma once
-#include <cctype>
-#include <string_view>
 #include <algorithm>
-#include <variant>
+#include <cctype>
+#include <cmath>
 #include <stdexcept>
 #include <stdfloat>
-#include <sstream>
+#include <string_view>
+#include <variant>
 
 namespace PapyrusLikeConfigurationLanguage::Generic {
-    using ValueType = std::variant<std::string, int64_t, std::float64_t, bool>;
+    #if __STDCPP_FLOAT64_T__ == 1
+        using float64_t = std::float64_t;
+    #else
+        #if __STDC_IEC_559__ == 1
+            using float64_t = double;
+        #else
+            #error "No 64-bit floating point type available"
+        #endif
+    #endif
+    
+    using ValueType = std::variant<std::string, int64_t, float64_t, bool>;
 
     inline static bool iequals(std::string_view lhs, std::string_view rhs) {
         return std::ranges::equal(lhs, rhs, [](unsigned char a, unsigned char b) {
