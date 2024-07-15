@@ -1,5 +1,35 @@
 // SPDX-License-Identifier: Apache-2.0
 
+/// @file
+/// @brief Generic utilities
+/// @attention This file is not meant to be included by the end user.
+///
+/// @namespace PapyrusLikeConfigurationLanguage::Generic
+/// @brief Generic utilities
+///
+/// @var PapyrusLikeConfigurationLanguage::Generic::float64_t
+/// @brief The 64-bit floating point type.
+/// @details It's either `std::float64_t` or `double` depending on the compiler's support for the former.
+///
+/// @var PapyrusLikeConfigurationLanguage::Generic::ValueType
+/// @brief A variant type that can hold a string, an integer, a floating point number, or a boolean.
+/// @details It's used to store the value of a key-value pair in a configuration file.
+///
+/// @fn PapyrusLikeConfigurationLanguage::Generic::iequals
+/// @brief A function for comparing two strings in a case-insensitive manner.
+/// @param lhs The first string to compare.
+/// @param rhs The second string to compare.
+/// @returns `true` if the strings are equal, `false` otherwise.
+///
+/// @fn PapyrusLikeConfigurationLanguage::Generic::genericExpectedError
+/// @brief A function for creating a `std::runtime_error` with a message about an expected value.
+/// @param expected The expected value.
+/// @param found The found value.
+/// @param line The line number where the error occurred.
+/// @param column The column number where the error occurred.
+/// @returns A `std::runtime_error` with the message "Expected `expected` but found `found` at line `line` column `column`".
+/// @note This function is used by the parser to create error messages when an expected value is not found.
+
 #pragma once
 #include <algorithm>
 #include <cctype>

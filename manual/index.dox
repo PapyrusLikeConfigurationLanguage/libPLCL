@@ -1,0 +1,7 @@
+/** \mainpage libPLCL Manual
+libPLCL is the reference parsing library for the <a href="https://github.com/PapyrusLikeConfigurationLanguage/PapyrusLikeConfigurationLanguage"><b>Papyrus(Like)ConfiguratonLanguage</b></a>
+ - \link md_manual_2building-and-installing Buliding and Installing \endlink
+ - <a href="/examples.html"><b>Examples</b></a>
+\example reading_config.cpp
+\example reading_template.cpp
+*/
