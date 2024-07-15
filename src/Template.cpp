@@ -100,7 +100,8 @@ namespace PapyrusLikeConfigurationLanguage::Template {
         while (index < tokens.size()) {
             switch (tokens[index].type) {
                 case Lexer::TokenType::TemplateElement:
-                    this->elements.push_back(new TemplateElement(tokens, index));
+                    this->element = new TemplateElement(tokens, index);
+                    //this->elements.push_back(new TemplateElement(tokens, index));
                     break;
                 case Lexer::TokenType::EndTemplateListElement:
                     index++;

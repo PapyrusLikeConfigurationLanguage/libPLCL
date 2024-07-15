@@ -51,12 +51,12 @@ namespace PapyrusLikeConfigurationLanguage::Template {
 
     struct TemplateListElement {
         size_t id = {};
-        std::vector<TemplateElement*> elements;
+        TemplateElement* element = nullptr; 
 
         TemplateListElement() = default;
         TemplateListElement(std::vector<Lexer::Token>& tokens, size_t& index);
-        TemplateListElement(size_t id, std::vector<TemplateElement*> elements)
-            : id(id), elements(std::move(elements)) {};
+        TemplateListElement(size_t id, TemplateElement* element)
+            : id(id), element(element) {};
     };
 
     struct TemplateElement {
