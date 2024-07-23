@@ -4,196 +4,196 @@
 /// @brief Parsing into a template tree.
 /// @attention This file is not meant to be included by the end user.
 ///
-/// @namespace PapyrusLikeConfigurationLanguage::Template 
+/// @namespace PLCL::Template 
 /// @brief The namespace for the template tree.
 ///
-/// @enum PapyrusLikeConfigurationLanguage::Template::Type
+/// @enum PLCL::Template::Type
 /// @brief The type of a template attribute.
 ///
-/// @fn std::string PapyrusLikeConfigurationLanguage::Template::typeToString(Type type)
+/// @fn std::string PLCL::Template::typeToString(Type type)
 /// @brief Converts a type to a string.
 /// @param type The type to convert.
 /// @return The string representation of the type.
 ///
-/// @struct PapyrusLikeConfigurationLanguage::Template::TemplateRoot
+/// @struct PLCL::Template::TemplateRoot
 /// @brief A struct that represents the root of a template tree.
 ///
-/// @var std::string PapyrusLikeConfigurationLanguage::Template::TemplateRoot::name 
+/// @var std::string PLCL::Template::TemplateRoot::name 
 /// @brief The name of the template.
 ///
-/// @var std::vector<PapyrusLikeConfigurationLanguage::Template::TemplateElement*> PapyrusLikeConfigurationLanguage::Template::TemplateRoot::elements
+/// @var std::vector<PLCL::Template::TemplateElement*> PLCL::Template::TemplateRoot::elements
 /// @brief The list of elements in the top level of the template.
 ///
-/// @var std::vector<PapyrusLikeConfigurationLanguage::Template::TemplateList*> PapyrusLikeConfigurationLanguage::Template::TemplateRoot::lists
+/// @var std::vector<PLCL::Template::TemplateList*> PLCL::Template::TemplateRoot::lists
 /// @brief The list of lists in the top level of the template.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateRoot::TemplateRoot()
+/// @fn PLCL::Template::TemplateRoot::TemplateRoot()
 /// @brief Default constructor.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateRoot::TemplateRoot(std::vector<Lexer::Token>& tokens)
+/// @fn PLCL::Template::TemplateRoot::TemplateRoot(std::vector<Lexer::Token>& tokens)
 /// @brief Constructor that parses tokens from the lexer.
 /// @param tokens The list of tokens to parse.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateRoot::TemplateRoot(std::string name, std::vector<TemplateElement*> elements, std::vector<TemplateList*> lists)
+/// @fn PLCL::Template::TemplateRoot::TemplateRoot(std::string name, std::vector<TemplateElement*> elements, std::vector<TemplateList*> lists)
 /// @brief Constructor that initializes all fields.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateRoot PapyrusLikeConfigurationLanguage::Template::TemplateRoot::fromString(const std::string& input)
+/// @fn PLCL::Template::TemplateRoot PLCL::Template::TemplateRoot::fromString(const std::string& input)
 /// @brief Parses a template from a string. 
 /// @param input The string to parse.
 /// @return The parsed template.
 ///
-/// @struct PapyrusLikeConfigurationLanguage::Template::TemplateList
+/// @struct PLCL::Template::TemplateList
 /// @brief A struct that represents a list in the template tree.
 /// @details It's used to store a list of elements in the template.
 ///
-/// @var std::string PapyrusLikeConfigurationLanguage::Template::TemplateList::type
+/// @var std::string PLCL::Template::TemplateList::type
 /// @brief The type (name) of the list.
 ///
-/// @var PapyrusLikeConfigurationLanguage::Template::TemplateOptions* PapyrusLikeConfigurationLanguage::Template::TemplateList::options
+/// @var PLCL::Template::TemplateOptions* PLCL::Template::TemplateList::options
 /// @brief The options of the list.
 ///
-/// @var std::vector<PapyrusLikeConfigurationLanguage::Template::TemplateListElement*> PapyrusLikeConfigurationLanguage::Template::TemplateList::elements
+/// @var std::vector<PLCL::Template::TemplateListElement*> PLCL::Template::TemplateList::elements
 /// @brief The list of elements in the list.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateList::TemplateList()
+/// @fn PLCL::Template::TemplateList::TemplateList()
 /// @brief Default constructor.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateList::TemplateList(std::vector<Lexer::Token>& tokens, size_t& index)
+/// @fn PLCL::Template::TemplateList::TemplateList(std::vector<Lexer::Token>& tokens, size_t& index)
 /// @brief Constructor that parses tokens from the lexer.
 /// @param tokens The list of tokens to parse.
 /// @param index The index of the current token.
 /// @attention This function is for internal use only.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateList::TemplateList(std::string type, TemplateOptions* options, std::vector<TemplateListElement*> elements)
+/// @fn PLCL::Template::TemplateList::TemplateList(std::string type, TemplateOptions* options, std::vector<TemplateListElement*> elements)
 /// @brief Constructor that initializes all fields.
 /// @param type The type (name) of the list.
 /// @param options The options of the list.
 /// @param elements The list of elements in the list.
 ///
-/// @struct PapyrusLikeConfigurationLanguage::Template::TemplateListElement
+/// @struct PLCL::Template::TemplateListElement
 /// @brief A struct that represents an element in a list in the template tree.
 /// @details It's done this way to represent the structure of a template as closely as possible.
 ///
-/// @var size_t PapyrusLikeConfigurationLanguage::Template::TemplateListElement::id 
+/// @var size_t PLCL::Template::TemplateListElement::id 
 /// @brief The id of the element.
 ///
-/// @var PapyrusLikeConfigurationLanguage::Template::TemplateElement* PapyrusLikeConfigurationLanguage::Template::TemplateListElement::element
+/// @var PLCL::Template::TemplateElement* PLCL::Template::TemplateListElement::element
 /// @brief The element in the list.
 /// 
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateListElement::TemplateListElement()
+/// @fn PLCL::Template::TemplateListElement::TemplateListElement()
 /// @brief Default constructor.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateListElement::TemplateListElement(std::vector<Lexer::Token>& tokens, size_t& index)
+/// @fn PLCL::Template::TemplateListElement::TemplateListElement(std::vector<Lexer::Token>& tokens, size_t& index)
 /// @brief Constructor that parses tokens from the lexer.
 /// @param tokens The list of tokens to parse.
 /// @param index The index of the current token.
 /// @attention This function is for internal use only.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateListElement::TemplateListElement(size_t id, TemplateElement* element)
+/// @fn PLCL::Template::TemplateListElement::TemplateListElement(size_t id, TemplateElement* element)
 /// @brief Constructor that initializes all fields.
 /// @param id The id of the element.
 /// @param element The element in the list.
 ///
-/// @struct PapyrusLikeConfigurationLanguage::Template::TemplateElement
+/// @struct PLCL::Template::TemplateElement
 /// @brief A struct that represents an element in the template tree.
 /// 
-/// @var std::string PapyrusLikeConfigurationLanguage::Template::TemplateElement::type 
+/// @var std::string PLCL::Template::TemplateElement::type 
 /// @brief The type (name) of the element.
 ///
-/// @var PapyrusLikeConfigurationLanguage::Template::TemplateOptions* PapyrusLikeConfigurationLanguage::Template::TemplateElement::options 
+/// @var PLCL::Template::TemplateOptions* PLCL::Template::TemplateElement::options 
 /// @brief The options of the element.
 ///
-/// @var std::vector<PapyrusLikeConfigurationLanguage::Template::TemplateAttribute*> PapyrusLikeConfigurationLanguage::Template::TemplateElement::attributes 
+/// @var std::vector<PLCL::Template::TemplateAttribute*> PLCL::Template::TemplateElement::attributes 
 /// @brief The list of attributes of the element.
 ///
-/// @var std::vector<PapyrusLikeConfigurationLanguage::Template::TemplateList*> PapyrusLikeConfigurationLanguage::Template::TemplateElement::lists
+/// @var std::vector<PLCL::Template::TemplateList*> PLCL::Template::TemplateElement::lists
 /// @brief The list of lists in the element.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateElement::TemplateElement()
+/// @fn PLCL::Template::TemplateElement::TemplateElement()
 /// @brief Default constructor.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateElement::TemplateElement(std::vector<Lexer::Token>& tokens, size_t& index)
+/// @fn PLCL::Template::TemplateElement::TemplateElement(std::vector<Lexer::Token>& tokens, size_t& index)
 /// @brief Constructor that parses tokens from the lexer.
 /// @param tokens The list of tokens to parse.
 /// @param index The index of the current token.
 /// @attention This function is for internal use only.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateElement::TemplateElement(std::string type, TemplateOptions* options, std::vector<TemplateAttribute*> attributes, std::vector<TemplateList*> lists)
+/// @fn PLCL::Template::TemplateElement::TemplateElement(std::string type, TemplateOptions* options, std::vector<TemplateAttribute*> attributes, std::vector<TemplateList*> lists)
 /// @brief Constructor that initializes all fields.
 /// @param type The type (name) of the element.
 /// @param options The options of the element.
 /// @param attributes The list of attributes of the element.
 /// @param lists The list of lists in the element.
 ///
-/// @struct PapyrusLikeConfigurationLanguage::Template::TemplateOptions
+/// @struct PLCL::Template::TemplateOptions
 /// @brief A struct that represents the options of a template element or list.
 /// 
-/// @var std::vector<PapyrusLikeConfigurationLanguage::Template::TemplateOption*> PapyrusLikeConfigurationLanguage::Template::TemplateOptions::options
+/// @var std::vector<PLCL::Template::TemplateOption*> PLCL::Template::TemplateOptions::options
 /// @brief The list of options.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateOptions::TemplateOptions()
+/// @fn PLCL::Template::TemplateOptions::TemplateOptions()
 /// @brief Default constructor.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateOptions::TemplateOptions(std::vector<Lexer::Token>& tokens, size_t& index)
+/// @fn PLCL::Template::TemplateOptions::TemplateOptions(std::vector<Lexer::Token>& tokens, size_t& index)
 /// @brief Constructor that parses tokens from the lexer.
 /// @param tokens The list of tokens to parse.
 /// @param index The index of the current token.
 /// @attention This function is for internal use only.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateOptions::TemplateOptions(std::vector<TemplateOption*> options)
+/// @fn PLCL::Template::TemplateOptions::TemplateOptions(std::vector<TemplateOption*> options)
 /// @brief Constructor that initializes all fields.
 /// @param options The list of options.
 ///
-/// @struct PapyrusLikeConfigurationLanguage::Template::TemplateOption
+/// @struct PLCL::Template::TemplateOption
 /// @brief A struct that represents an option of a template element or list.
 ///
-/// @var std::string PapyrusLikeConfigurationLanguage::Template::TemplateOption::name 
+/// @var std::string PLCL::Template::TemplateOption::name 
 /// @brief The name of the option.
 ///
-/// @var Generic::ValueType PapyrusLikeConfigurationLanguage::Template::TemplateOption::value 
+/// @var Generic::ValueType PLCL::Template::TemplateOption::value 
 /// @brief The value of the option.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateOption::TemplateOption()
+/// @fn PLCL::Template::TemplateOption::TemplateOption()
 /// @brief Default constructor.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateOption::TemplateOption(std::vector<Lexer::Token>& tokens, size_t& index)
+/// @fn PLCL::Template::TemplateOption::TemplateOption(std::vector<Lexer::Token>& tokens, size_t& index)
 /// @brief Constructor that parses tokens from the lexer.
 /// @param tokens The list of tokens to parse.
 /// @param index The index of the current token.
 /// @attention This function is for internal use only.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateOption::TemplateOption(std::string name, Generic::ValueType value)
+/// @fn PLCL::Template::TemplateOption::TemplateOption(std::string name, Generic::ValueType value)
 /// @brief Constructor that initializes all fields.
 /// @param name The name of the option.
 /// @param value The value of the option.
 ///
-/// @struct PapyrusLikeConfigurationLanguage::Template::TemplateAttribute
+/// @struct PLCL::Template::TemplateAttribute
 /// @brief A struct that represents an attribute of a template element.
 ///
-/// @var PapyrusLikeConfigurationLanguage::Template::Type PapyrusLikeConfigurationLanguage::Template::TemplateAttribute::type 
+/// @var PLCL::Template::Type PLCL::Template::TemplateAttribute::type 
 /// @brief The type of the attribute.
 ///
-/// @var std::string PapyrusLikeConfigurationLanguage::Template::TemplateAttribute::name
+/// @var std::string PLCL::Template::TemplateAttribute::name
 /// @brief The name of the attribute.
 ///
-/// @var std::string* PapyrusLikeConfigurationLanguage::Template::TemplateAttribute::defaultValue 
+/// @var std::string* PLCL::Template::TemplateAttribute::defaultValue 
 /// @brief The default value of the attribute.
 /// @details This is a pointer to allow for a null value.
 ///
-/// @var bool PapyrusLikeConfigurationLanguage::Template::TemplateAttribute::required
+/// @var bool PLCL::Template::TemplateAttribute::required
 /// @brief Whether the attribute is required.
 /// @details If this is true, the attribute must be present in the configuration.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateAttribute::TemplateAttribute()
+/// @fn PLCL::Template::TemplateAttribute::TemplateAttribute()
 /// @brief Default constructor.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateAttribute::TemplateAttribute(std::vector<Lexer::Token>& tokens, size_t& index)
+/// @fn PLCL::Template::TemplateAttribute::TemplateAttribute(std::vector<Lexer::Token>& tokens, size_t& index)
 /// @brief Constructor that parses tokens from the lexer.
 /// @param tokens The list of tokens to parse.
 /// @param index The index of the current token.
 /// @attention This function is for internal use only.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Template::TemplateAttribute::TemplateAttribute(Type type, std::string name, std::string* defaultValue, bool required)
+/// @fn PLCL::Template::TemplateAttribute::TemplateAttribute(Type type, std::string name, std::string* defaultValue, bool required)
 /// @brief Constructor that initializes all fields.
 /// @param type The type of the attribute.
 /// @param name The name of the attribute.
@@ -207,7 +207,7 @@
 #include "Generic.hpp"
 #include "Lexer.hpp"
 
-namespace PapyrusLikeConfigurationLanguage::Template {
+namespace PLCL::Template {
     enum class Type {
         String,
         Integer,

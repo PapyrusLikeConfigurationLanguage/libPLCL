@@ -37,19 +37,17 @@ ConfigList TopLevelList \
 endConfigList \
 "
 
-using namespace PapyrusLikeConfigurationLanguage;
+void printConfigElement(PLCL::Config::ConfigElement& element, size_t indent);
 
-void printConfigElement(Config::ConfigElement& element, size_t indent);
-
-std::string valueTypeToString(Generic::ValueType& value) {
+std::string valueTypeToString(PLCL::Generic::ValueType& value) {
     if (std::holds_alternative<std::string>(value)) {
         return std::get<std::string>(value);
     }
     if (std::holds_alternative<int64_t>(value)) {
         return std::to_string(std::get<int64_t>(value));
     }
-    if (std::holds_alternative<Generic::float64_t>(value)) {
-        return std::to_string(std::get<Generic::float64_t>(value));
+    if (std::holds_alternative<PLCL::Generic::float64_t>(value)) {
+        return std::to_string(std::get<PLCL::Generic::float64_t>(value));
     }
     if (std::holds_alternative<bool>(value)) {
         return std::get<bool>(value) ? "true" : "false";
@@ -63,7 +61,7 @@ void printIndent(size_t indent) {
     }
 }
 
-void printList(Config::ConfigList& list, size_t indent) {
+void printList(PLCL::Config::ConfigList& list, size_t indent) {
     printIndent(indent);
     std::cout << "List " << list.type << '\n';
     indent += 4;
@@ -75,7 +73,7 @@ void printList(Config::ConfigList& list, size_t indent) {
     }
 }
 
-void printConfigElement(Config::ConfigElement& element, size_t indent) {
+void printConfigElement(PLCL::Config::ConfigElement& element, size_t indent) {
     printIndent(indent);
     std::cout << "Element " << element.type << '\n';
     indent += 4;
@@ -90,7 +88,7 @@ void printConfigElement(Config::ConfigElement& element, size_t indent) {
 }
 
 int main() {
-    Config::ConfigRoot config = Config::ConfigRoot::fromString(EXAMPLE);
+    PLCL::Config::ConfigRoot config = PLCL::Config::ConfigRoot::fromString(EXAMPLE);
     std::cout << "Config Name: " << config.name << '\n';
     for (auto& import : config.imports) {
         std::cout << "Import: " << import << '\n';

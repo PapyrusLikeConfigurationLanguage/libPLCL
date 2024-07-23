@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 project(
-    libPLCL
+    PLCL
     VERSION 0.0.0
     DESCRIPTION "The Reference Implementation of the Papyrus(Like)ConfigurationLanguage"
     HOMEPAGE_URL "https://github.com/PapyrusLikeConfigurationLanguage/libPLCL"
@@ -12,8 +12,6 @@ include(GNUInstallDirs)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_STATIC_LIBRARY_PREFIX "")
-set(CMAKE_SHARED_LIBRARY_PREFIX "")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Werror")
 
 add_library(${PROJECT_NAME})

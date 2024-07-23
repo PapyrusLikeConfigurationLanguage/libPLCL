@@ -4,38 +4,38 @@
 /// @brief Turning input into tokens
 /// @attention This file is not meant to be included by the end user.
 ///
-/// @class PapyrusLikeConfigurationLanguage::Lexer
+/// @class PLCL::Lexer
 /// @brief A class that turns input into tokens
 /// @details The lexer is responsible for turning the input into tokens that the parser can understand.
 /// It does this by reading the input character by character and determining what kind of token it is.
 ///
-/// @enum PapyrusLikeConfigurationLanguage::Lexer::TokenType
+/// @enum PLCL::Lexer::TokenType
 /// @brief The different types of tokens that the lexer can produce
 ///
-/// @struct PapyrusLikeConfigurationLanguage::Lexer::Token
+/// @struct PLCL::Lexer::Token
 /// @brief A struct that represents a token produced by the lexer
 ///
-/// @var PapyrusLikeConfigurationLanguage::Lexer::Token::type 
+/// @var PLCL::Lexer::Token::type 
 /// @brief The type of the token
 ///
-/// @var PapyrusLikeConfigurationLanguage::Lexer::Token::value
+/// @var PLCL::Lexer::Token::value
 /// @brief The value of the token
 /// @details The value of the token is the actual string that was read from the input
 /// 
-/// @var PapyrusLikeConfigurationLanguage::Lexer::Token::line 
+/// @var PLCL::Lexer::Token::line 
 /// @brief The line number where the token was found
 ///
-/// @var PapyrusLikeConfigurationLanguage::Lexer::Token::column
+/// @var PLCL::Lexer::Token::column
 /// @brief The column number where the token was found
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Lexer::Lexer(std::string input)
+/// @fn PLCL::Lexer::Lexer(std::string input)
 /// @brief Constructs a lexer with the given input
 ///
-/// @fn std::vector<Token> PapyrusLikeConfigurationLanguage::Lexer::lex()
+/// @fn std::vector<Token> PLCL::Lexer::lex()
 /// @brief Turns the input into tokens
 /// @return A vector of tokens 
 ///
-/// @fn std::string PapyrusLikeConfigurationLanguage::Lexer::tokenTypeToString(TokenType type)
+/// @fn std::string PLCL::Lexer::tokenTypeToString(TokenType type)
 /// @brief Converts a token type to a string 
 /// @param type The token type to convert 
 /// @return The string representation of the token type
@@ -44,7 +44,7 @@
 #include <vector>
 #include <string>
 
-namespace PapyrusLikeConfigurationLanguage {
+namespace PLCL {
     class Lexer {
     public:
         enum class TokenType {

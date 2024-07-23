@@ -37,19 +37,17 @@ TemplateList TopLevelList \
 endTemplateList \
 "
 
-using namespace PapyrusLikeConfigurationLanguage;
+void printElement(PLCL::Template::TemplateElement& element, size_t indent);
 
-void printElement(Template::TemplateElement& element, size_t indent);
-
-std::string valueTypeToString(Generic::ValueType& value) {
+std::string valueTypeToString(PLCL::Generic::ValueType& value) {
     if (std::holds_alternative<std::string>(value)) {
         return std::get<std::string>(value);
     }
     if (std::holds_alternative<int64_t>(value)) {
         return std::to_string(std::get<int64_t>(value));
     }
-    if (std::holds_alternative<Generic::float64_t>(value)) {
-        return std::to_string(std::get<Generic::float64_t>(value));
+    if (std::holds_alternative<PLCL::Generic::float64_t>(value)) {
+        return std::to_string(std::get<PLCL::Generic::float64_t>(value));
     }
     if (std::holds_alternative<bool>(value)) {
         return std::get<bool>(value) ? "true" : "false";
@@ -63,7 +61,7 @@ void printIndent(size_t indent) {
     }
 }
 
-void printOptions(Template::TemplateOptions& options, size_t indent) {
+void printOptions(PLCL::Template::TemplateOptions& options, size_t indent) {
     printIndent(indent);
     std::cout << "Options\n";
     indent += 4;
@@ -74,7 +72,7 @@ void printOptions(Template::TemplateOptions& options, size_t indent) {
     indent -= 4;
 }
 
-void printList(Template::TemplateList& list, size_t indent) {
+void printList(PLCL::Template::TemplateList& list, size_t indent) {
     printIndent(indent);
     std::cout << "List " << list.type << '\n';
     indent += 4;
@@ -89,7 +87,7 @@ void printList(Template::TemplateList& list, size_t indent) {
     }
 }
 
-void printElement(Template::TemplateElement& element, size_t indent) {
+void printElement(PLCL::Template::TemplateElement& element, size_t indent) {
     printIndent(indent);
     std::cout << "Element " << element.type << '\n';
     indent += 4;
@@ -98,7 +96,7 @@ void printElement(Template::TemplateElement& element, size_t indent) {
     }
     for (auto& attribute : element.attributes) {
         printIndent(indent);
-        std::cout << "Attribute " << attribute->name << ": " << Template::typeToString(attribute->type);
+        std::cout << "Attribute " << attribute->name << ": " << PLCL::Template::typeToString(attribute->type);
         if (attribute->required) {
             std::cout << " (required)";
         }
@@ -114,7 +112,7 @@ void printElement(Template::TemplateElement& element, size_t indent) {
 }
 
 int main() {
-    Template::TemplateRoot templ = Template::TemplateRoot::fromString(EXAMPLE);
+    PLCL::Template::TemplateRoot templ = PLCL::Template::TemplateRoot::fromString(EXAMPLE);
     std::cout << "Template Name: " << templ.name << '\n';
     for (auto& element : templ.elements) {
         printElement(*element, 0);

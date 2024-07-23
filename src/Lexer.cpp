@@ -3,7 +3,7 @@
 #include <Lexer.hpp>
 #include <Generic.hpp>
 
-namespace PapyrusLikeConfigurationLanguage {
+namespace PLCL {
     std::string Lexer::tokenTypeToString(Lexer::TokenType type) {
         switch (type) {
             case Lexer::TokenType::EndOfFile:

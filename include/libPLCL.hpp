@@ -5,7 +5,7 @@
 /// @details This file includes all the necessary headers.
 /// @note This is the only file that should be included in external projects.
 ///
-/// @namespace PapyrusLikeConfigurationLanguage
+/// @namespace PLCL
 /// @brief The namespace for the entire library.
 
 #pragma once

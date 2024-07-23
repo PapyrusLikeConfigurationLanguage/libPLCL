@@ -5,7 +5,7 @@
 #include <format>
 #include <Config.hpp>
 
-namespace PapyrusLikeConfigurationLanguage::Config {
+namespace PLCL::Config {
     [[maybe_unused]] ConfigRoot ConfigRoot::fromString(const std::string &input) {
         Lexer lexer(input);
         auto tokens = lexer.lex();

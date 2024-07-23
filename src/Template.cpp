@@ -5,7 +5,7 @@
 #include <utility>
 #include <Template.hpp>
 
-namespace PapyrusLikeConfigurationLanguage::Template {
+namespace PLCL::Template {
     std::string typeToString(Type type) {
         switch (type) {
             case Type::String:

@@ -4,24 +4,24 @@
 /// @brief Generic utilities
 /// @attention This file is not meant to be included by the end user.
 ///
-/// @namespace PapyrusLikeConfigurationLanguage::Generic
+/// @namespace PLCL::Generic
 /// @brief Generic utilities
 ///
-/// @var PapyrusLikeConfigurationLanguage::Generic::float64_t
+/// @var PLCL::Generic::float64_t
 /// @brief The 64-bit floating point type.
 /// @details It's either `std::float64_t` or `double` depending on the compiler's support for the former.
 ///
-/// @var PapyrusLikeConfigurationLanguage::Generic::ValueType
+/// @var PLCL::Generic::ValueType
 /// @brief A variant type that can hold a string, an integer, a floating point number, or a boolean.
 /// @details It's used to store the value of a key-value pair in a configuration file.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Generic::iequals
+/// @fn PLCL::Generic::iequals
 /// @brief A function for comparing two strings in a case-insensitive manner.
 /// @param lhs The first string to compare.
 /// @param rhs The second string to compare.
 /// @returns `true` if the strings are equal, `false` otherwise.
 ///
-/// @fn PapyrusLikeConfigurationLanguage::Generic::genericExpectedError
+/// @fn PLCL::Generic::genericExpectedError
 /// @brief A function for creating a `std::runtime_error` with a message about an expected value.
 /// @param expected The expected value.
 /// @param found The found value.
@@ -39,7 +39,7 @@
 #include <string_view>
 #include <variant>
 
-namespace PapyrusLikeConfigurationLanguage::Generic {
+namespace PLCL::Generic {
     #if __STDCPP_FLOAT64_T__ == 1
         using float64_t = std::float64_t;
     #else
