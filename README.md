@@ -1,8 +1,15 @@
 # libPLCL
 
-libPLCL is the reference parsing library for the [Papyrus(Like)ConfigurationLanguage](https://github.com/PapyrusLikeConfigurationLanguage/PapyrusLikeConfigurationLanguage) language.
+libPLCL is the reference serialization/deserialization library for the [Papyrus(Like)ConfigurationLanguage](https://github.com/PapyrusLikeConfigurationLanguage/PapyrusLikeConfigurationLanguage) language.
 
 Until there is a stable release, the API is subject to change.
+
+## TODO
+
+- [ ] Serialization
+- [ ] Verifying configs against templates
+- [ ] Better error handling
+- [ ] Tests
 
 ## Building and Installing
 
