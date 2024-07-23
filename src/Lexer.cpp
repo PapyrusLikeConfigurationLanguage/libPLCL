@@ -2,6 +2,7 @@
 
 #include <Lexer.hpp>
 #include <Generic.hpp>
+#include <utility>
 
 namespace PLCL {
     std::string Lexer::tokenTypeToString(Lexer::TokenType type) {
@@ -66,8 +67,9 @@ namespace PLCL {
                 return "EndTemplateListOptions";
             case Lexer::TokenType::Unknown:
                 return "Unknown";
+            [[unlikely]] default:
+                std::unreachable();
         }
-        return "Unreachable";
     }
 
     std::vector<Lexer::Token> Lexer::lex() {

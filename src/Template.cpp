@@ -16,8 +16,9 @@ namespace PLCL::Template {
                 return "Float";
             case Type::Boolean:
                 return "Boolean";
+            [[unlikely]] default:
+                std::unreachable();
         }
-        return "Unreachable";
     }
 
     [[maybe_unused]] TemplateRoot TemplateRoot::fromString(const std::string &input) {
@@ -250,8 +251,7 @@ namespace PLCL::Template {
             case Lexer::TokenType::BooleanLiteral:
                 this->value = tokens[index].value == "true";
                 break;
-            [[unlikely]]
-            default:
+            [[unlikely]] default:
                 std::unreachable();
         }
         index++;
