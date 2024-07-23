@@ -3,39 +3,39 @@
 #include <variant>
 #include <libPLCL.hpp>
 
-#define EXAMPLE "\
-TemplateName examplethingy \
-\
-TemplateElement ExampleElement \
-    TemplateElementOptions \
-        required = true \
-    endTemplateElementOptions \
-    string a required \
-    int b default 321 \
-    float c \
-    bool d \
-    TemplateList InnerElements \
-        TemplateListOptions \
-            required = true \
-            minimumCount = 1 \
-            maximumCount = 1 \
-        endTemplateListOptions \
-        TemplateListElement 0 \
-            TemplateElement InnerElement \
-                string hi default \":3\" \
-            endTemplateElement \
-        endTemplateListElement \
-    endTemplateList \
-endTemplateElement \
-\
-TemplateList TopLevelList \
-    TemplateListElement 2 \
-        TemplateElement ElementInList \
-            string attribute required \
-        endTemplateElement \
-    endTemplateListElement \
-endTemplateList \
-"
+#define EXAMPLE R"(
+TemplateName examplethingy 
+
+TemplateElement ExampleElement 
+    TemplateElementOptions 
+        required = true 
+    endTemplateElementOptions 
+    string a required 
+    int b default 321 
+    float c 
+    bool d 
+    TemplateList InnerElements 
+        TemplateListOptions 
+            required = true 
+            minimumCount = 1 
+            maximumCount = 1 
+        endTemplateListOptions 
+        TemplateListElement 0 
+            TemplateElement InnerElement 
+                string hi default ":3" 
+            endTemplateElement 
+        endTemplateListElement 
+    endTemplateList 
+endTemplateElement 
+
+TemplateList TopLevelList 
+    TemplateListElement 2 
+        TemplateElement ElementInList 
+            string attribute required 
+        endTemplateElement 
+    endTemplateListElement 
+endTemplateList 
+)"
 
 void printElement(PLCL::Template::TemplateElement& element, size_t indent);
 

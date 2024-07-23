@@ -3,39 +3,39 @@
 #include <variant>
 #include <libPLCL.hpp>
 
-#define EXAMPLE "\
-ConfigName examplethingy \
-\
-Import \"thingy\" \
-Import \"another thingy\" \
-\
-ConfigElement ExampleElement \
-    a = \"string\" \
-    b = 123 \
-    c = 3.14 \
-    d = true \
-    ConfigList InnerElements \
-        ConfigListElement 0 \
-            ConfigElement InnerElement \
-                hi = \"uwu\" \
-            endConfigElement \
-        endConfigListElement \
-    endConfigList \
-endConfigElement \
-\
-ConfigList TopLevelList \
-    ConfigListElement 0 \
-        ConfigElement ElementInList \
-            attribute = \"value\" \
-        endConfigElement \
-    endConfigListElement \
-    ConfigListElement 1 \
-        ConfigElement ElementInList \
-            attribute = \"value2\" \
-        endConfigElement \
-    endConfigListElement \
-endConfigList \
-"
+#define EXAMPLE R"(
+ConfigName examplethingy
+
+Import "thingy" 
+Import "another thingy" 
+
+ConfigElement ExampleElement 
+    a = "string" 
+    b = 123 
+    c = 3.14 
+    d = true 
+    ConfigList InnerElements 
+        ConfigListElement 0 
+            ConfigElement InnerElement 
+                hi = "uwu" 
+            endConfigElement 
+        endConfigListElement 
+    endConfigList 
+endConfigElement 
+
+ConfigList TopLevelList 
+    ConfigListElement 0 
+        ConfigElement ElementInList 
+            attribute = "value" 
+        endConfigElement 
+    endConfigListElement 
+    ConfigListElement 1 
+        ConfigElement ElementInList 
+            attribute = "value2" 
+        endConfigElement 
+    endConfigListElement 
+endConfigList 
+)"
 
 void printConfigElement(PLCL::Config::ConfigElement& element, size_t indent);
 
