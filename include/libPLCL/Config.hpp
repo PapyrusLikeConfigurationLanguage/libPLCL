@@ -48,6 +48,11 @@
 /// @param strict Whether to strictly verify the configuration.
 /// @attention This function is not implemented yet.
 ///
+/// @fn std::string PLCL::Config::ConfigRoot::toString(size_t indent)
+/// @brief Converts the configuration to a string.
+/// @param indent The number of spaces to indent the configuration's contents.
+/// @return The configuration as a string.
+///
 /// @struct PLCL::Config::ConfigList
 /// @brief A struct that represents a list in the configuration tree.
 /// @details It's used to store a list of elements in the configuration.
@@ -72,6 +77,12 @@
 /// @param type The type (name) of the list.
 /// @param elements The list of elements in the list.
 ///
+/// @fn std::string PLCL::Config::ConfigList::toString(size_t indent, size_t indentStart)
+/// @brief Converts the list to a string.
+/// @param indent The number of spaces to indent the list's contents.
+/// @param indentStart The number of spaces to indent the whole list.
+/// @return The list as a string.
+///
 /// @struct PLCL::Config::ConfigListElement
 /// @brief A struct that represents an element in a list.
 /// @details It's done this way to represent the structure of a configuration as closely as possible.
@@ -95,6 +106,12 @@
 /// @brief Constructor that initializes all fields.
 /// @param id The id of the element in the list.
 /// @param element The element in the list.
+///
+/// @fn std::string PLCL::Config::ConfigListElement::toString(size_t indent, size_t indentStart)
+/// @brief Converts the element to a string.
+/// @param indent The number of spaces to indent the element's contents.
+/// @param indentStart The number of spaces to indent the whole element.
+/// @return The element as a string.
 ///
 /// @struct PLCL::Config::ConfigElement
 /// @brief A struct that represents an element in the configuration tree.
@@ -123,6 +140,12 @@
 /// @param attributes The list of attributes of the element.
 /// @param lists The list of lists in the element.
 ///
+/// @fn std::string PLCL::Config::ConfigElement::toString(size_t indent, size_t indentStart)
+/// @brief Converts the element to a string.
+/// @param indent The number of spaces to indent the element's contents.
+/// @param indentStart The number of spaces to indent the whole element.
+/// @return The element as a string.
+///
 /// @struct PLCL::Config::ConfigElementAttribute
 /// @brief A struct that represents an attribute of an element.
 ///
@@ -145,6 +168,11 @@
 /// @brief Constructor that initializes all fields.
 /// @param name The name of the attribute.
 /// @param value The value of the attribute.
+///
+/// @fn std::string PLCL::Config::ConfigElementAttribute::toString(size_t indent)
+/// @brief Converts the attribute to a string.
+/// @param indent The number of spaces to indent the attribute.
+/// @return The attribute as a string.
 
 
 #pragma once
@@ -173,6 +201,7 @@ namespace PLCL::Config {
 
         [[maybe_unused]] static ConfigRoot fromString(const std::string& input);
         [[maybe_unused]] void verify(Template::TemplateRoot& configTemplate, bool strict);
+        [[maybe_unused]] std::string toString(size_t indent);
     };
 
     struct ConfigList {
@@ -183,16 +212,20 @@ namespace PLCL::Config {
         ConfigList(std::vector<Lexer::Token>& tokens, size_t& index);
         ConfigList(std::string type, std::vector<ConfigListElement*> elements)
             : type(std::move(type)), elements(std::move(elements)) {};
+
+        [[maybe_unused]] std::string toString(size_t indent, size_t indentStart);
     };
 
     struct ConfigListElement {
-        [[maybe_unused]] size_t id = {};
-
+        size_t id = {};
         ConfigElement* element = nullptr;
+
         ConfigListElement() = default;
         ConfigListElement(std::vector<Lexer::Token>& tokens, size_t& index);
         ConfigListElement(size_t id, ConfigElement* element)
             : id(id), element(element) {};
+
+        [[maybe_unused]] std::string toString(size_t indent, size_t indentStart);
     };
 
     struct ConfigElement {
@@ -204,6 +237,8 @@ namespace PLCL::Config {
         ConfigElement(std::vector<Lexer::Token>& tokens, size_t& index);
         ConfigElement(std::string type, std::vector<ConfigElementAttribute*> attributes, std::vector<ConfigList*> lists)
             : type(std::move(type)), attributes(std::move(attributes)), lists(std::move(lists)) {};
+
+        [[maybe_unused]] std::string toString(size_t indent, size_t indentStart);
     };
 
     struct ConfigElementAttribute {
@@ -214,5 +249,7 @@ namespace PLCL::Config {
         ConfigElementAttribute(std::vector<Lexer::Token>& tokens, size_t& index);
         ConfigElementAttribute(std::string name, Generic::ValueType value)
             : name(std::move(name)), value(std::move(value)) {};
+
+        [[maybe_unused]] std::string toString(size_t indent);
     };
 }

@@ -92,6 +92,21 @@ namespace PLCL::Config {
         //}
     }
 
+    [[maybe_unused]] std::string ConfigRoot::toString(size_t indent) {
+        std::string result;
+        result += std::format("ConfigName {}\n", this->name);
+        for (auto &import : this->imports) {
+            result += std::format("Import \"{}\"\n", import);
+        }
+        for (auto &element : this->elements) {
+            result += element->toString(indent, 0);
+        }
+        for (auto &list : this->lists) {
+            result += list->toString(indent, 0);
+        }
+        return result;
+    }
+
     ConfigList::ConfigList(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::ConfigList) {
             throw std::runtime_error(std::format(R"(Expected "ConfigList" at line {}, column {}, got {})", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
@@ -112,6 +127,16 @@ namespace PLCL::Config {
                 throw std::runtime_error(std::format("Unexpected token at line {}, column {}, got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
             }
         }
+    }
+
+    std::string ConfigList::toString(size_t indent, size_t indentStart) {
+        std::string result;
+        result += std::format("{}ConfigList {}\n", std::string(indentStart, ' '), this->type);
+        for (auto &element : this->elements) {
+            result += element->toString(indent, indentStart + indent);
+        }
+        result += std::string(indentStart, ' ') + "endConfigList\n";
+        return result;
     }
 
     ConfigListElement::ConfigListElement(std::vector<Lexer::Token> &tokens, size_t &index) {
@@ -139,6 +164,14 @@ namespace PLCL::Config {
         }
     }
 
+    std::string ConfigListElement::toString(size_t indent, size_t indentStart) {
+        std::string result;
+        result += std::format("{}ConfigListElement {}\n", std::string(indentStart, ' '), this->id);
+        result += this->element->toString(indent, indentStart + indent);
+        result += std::string(indentStart, ' ') + "endConfigListElement\n";
+        return result;
+    }
+
     ConfigElement::ConfigElement(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::ConfigElement) {
             throw std::runtime_error(std::format(R"(Expected "ConfigElement" at line {}, column {}, got {})", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
@@ -161,6 +194,19 @@ namespace PLCL::Config {
                 throw std::runtime_error(std::format("Unexpected token at line {}, column {}, got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
             }
         }
+    }
+
+    std::string ConfigElement::toString(size_t indent, size_t indentStart) {
+        std::string result;
+        result += std::format("{}ConfigElement {}\n", std::string(indentStart, ' '), this->type);
+        for (auto &attribute : this->attributes) {
+            result += attribute->toString(indentStart + indent);
+        }
+        for (auto &list : this->lists) {
+            result += list->toString(indent, indentStart + indent);
+        }
+        result += std::string(indentStart, ' ') + "endConfigElement\n";
+        return result;
     }
 
     ConfigElementAttribute::ConfigElementAttribute(std::vector<Lexer::Token> &tokens, size_t &index) {
@@ -187,5 +233,20 @@ namespace PLCL::Config {
             throw std::runtime_error(std::format("Expected StringLiteral, NumberLiteral or BooleanLiteral at line {}, column {}, got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
         }
         index++;
+    }
+
+    std::string ConfigElementAttribute::toString(size_t indent) {
+        std::string result;
+        result += std::format("{}{} = ", std::string(indent, ' '), this->name);
+        if (std::holds_alternative<std::string>(this->value)) {
+            result += "\"" + std::get<std::string>(this->value) + "\"\n";
+        } else if (std::holds_alternative<int64_t>(this->value)) {
+            result += std::to_string(std::get<int64_t>(this->value)) + "\n";
+        } else if (std::holds_alternative<Generic::float64_t>(this->value)) {
+            result += std::format("{}\n", std::get<Generic::float64_t>(this->value)); // std::format doesn't give trailing 0s
+        } else if (std::holds_alternative<bool>(this->value)) {
+            result += std::get<bool>(this->value) ? "true\n" : "false\n";
+        }
+        return result;
     }
 }
