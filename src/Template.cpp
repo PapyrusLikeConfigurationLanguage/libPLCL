@@ -6,16 +6,16 @@
 #include <Template.hpp>
 
 namespace PLCL::Template {
-    std::string typeToString(Type type) {
+    std::string attributeTypeToString(AttributeType type) {
         switch (type) {
-            case Type::String:
-                return "String";
-            case Type::Integer:
-                return "Integer";
-            case Type::Float:
-                return "Float";
-            case Type::Boolean:
-                return "Boolean";
+            case AttributeType::String:
+                return "string";
+            case AttributeType::Integer:
+                return "int";
+            case AttributeType::Float:
+                return "float";
+            case AttributeType::Boolean:
+                return "bool";
             [[unlikely]] default:
                 std::unreachable();
         }
@@ -54,6 +54,18 @@ namespace PLCL::Template {
         }
     }
 
+    std::string TemplateRoot::toString(size_t indent) {
+        std::string result;
+        result += std::format("TemplateName {}\n", this->name);
+        for (auto &element : this->elements) {
+            result += element->toString(indent, 0);
+        }
+        for (auto &list : this->lists) {
+            result += list->toString(indent, 0);
+        }
+        return result;
+    }
+
     TemplateList::TemplateList(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::TemplateList) {
             throw Generic::genericExpectedError(R"("TemplateList")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
@@ -86,6 +98,19 @@ namespace PLCL::Template {
         }
     }
 
+    std::string TemplateList::toString(size_t indent, size_t indentStart) {
+        std::string result;
+        result += std::format("{}TemplateList {}\n", std::string(indentStart, ' '), this->type);
+        if (this->options != nullptr) {
+            result += this->options->toString(indent, indentStart + indent, OptionsType::List);
+        }
+        for (auto &element : this->elements) {
+            result += element->toString(indent, indentStart + indent);
+        }
+        result += std::format("{}endTemplateList\n", std::string(indentStart, ' '));
+        return result;
+    }
+
     TemplateListElement::TemplateListElement(std::vector<Lexer::Token> &tokens, size_t &index) {
         if (tokens[index].type != Lexer::TokenType::TemplateListElement) {
             throw Generic::genericExpectedError(R"("TemplateListElement")", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
@@ -111,6 +136,14 @@ namespace PLCL::Template {
                     throw std::runtime_error(std::format("Unexpected token at line {}, column {}, but got {}", tokens[index].line, tokens[index].column, Lexer::tokenTypeToString(tokens[index].type)));
             }
         }
+    }
+
+    std::string TemplateListElement::toString(size_t indent, size_t indentStart) {
+        std::string result;
+        result += std::format("{}TemplateListElement {}\n", std::string(indentStart, ' '), this->id);
+        result += this->element->toString(indent, indentStart + indent);
+        result += std::format("{}endTemplateListElement\n", std::string(indentStart, ' '));
+        return result;
     }
 
     TemplateElement::TemplateElement(std::vector<Lexer::Token> &tokens, size_t &index) {
@@ -151,19 +184,35 @@ namespace PLCL::Template {
         }
     }
 
+    std::string TemplateElement::toString(size_t indent, size_t indentStart) {
+        std::string result;
+        result += std::format("{}TemplateElement {}\n", std::string(indentStart, ' '), this->type);
+        if (this->options != nullptr) {
+            result += this->options->toString(indent, indentStart + indent, OptionsType::Element);
+        }
+        for (auto &attribute : this->attributes) {
+            result += attribute->toString(indentStart + indent);
+        }
+        for (auto &list : this->lists) {
+            result += list->toString(indent, indentStart + indent);
+        }
+        result += std::format("{}endTemplateElement\n", std::string(indentStart, ' '));
+        return result;
+    }
+
     TemplateAttribute::TemplateAttribute(std::vector<Lexer::Token> &tokens, size_t &index) {
         switch (tokens[index].type) {
             case Lexer::TokenType::String:
-                this->type = Type::String;
+                this->type = AttributeType::String;
                 break;
             case Lexer::TokenType::Integer:
-                this->type = Type::Integer;
+                this->type = AttributeType::Integer;
                 break;
             case Lexer::TokenType::Float:
-                this->type = Type::Float;
+                this->type = AttributeType::Float;
                 break;
             case Lexer::TokenType::Boolean:
-                this->type = Type::Boolean;
+                this->type = AttributeType::Boolean;
                 break;
             [[unlikely]] default:
                 throw Generic::genericExpectedError("String, Integer, Float, or Boolean", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
@@ -184,20 +233,20 @@ namespace PLCL::Template {
             } else if (tokens[index].value == "default") {
                 index++;
                 switch (this->type) {
-                    case Type::String:
+                    case AttributeType::String:
                         if (tokens[index].type != Lexer::TokenType::StringLiteral) {
                             throw Generic::genericExpectedError("StringLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
                         }
                         this->defaultValue = new std::string(tokens[index].value);
                         break;
-                    case Type::Integer:
-                    case Type::Float:
+                    case AttributeType::Integer:
+                    case AttributeType::Float:
                         if (tokens[index].type != Lexer::TokenType::NumberLiteral) {
                             throw Generic::genericExpectedError("NumberLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
                         }
                         this->defaultValue = new std::string(tokens[index].value);
                         break;
-                    case Type::Boolean:
+                    case AttributeType::Boolean:
                         if (tokens[index].type != Lexer::TokenType::BooleanLiteral) {
                             throw Generic::genericExpectedError("BooleanLiteral", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
                         }
@@ -209,6 +258,20 @@ namespace PLCL::Template {
                 return;
             }
         }
+    }
+
+    std::string TemplateAttribute::toString(size_t indent) {
+        std::string result;
+        result += std::format("{}{} {}{}", std::string(indent, ' '), attributeTypeToString(this->type), this->name, this->required ? " required" : "");
+        if (this->defaultValue != nullptr) {
+            if (this->type == AttributeType::String) {
+                result += std::format(" default \"{}\"", *this->defaultValue);
+            } else {
+                result += std::format(" default {}", *this->defaultValue);
+            }
+        }
+        result += '\n';
+        return result;
     }
 
     TemplateOptions::TemplateOptions(std::vector<Lexer::Token> &tokens, size_t &index) {
@@ -226,6 +289,16 @@ namespace PLCL::Template {
                 throw Generic::genericExpectedError("Name", Lexer::tokenTypeToString(tokens[index].type), tokens[index].line, tokens[index].column);
             }
         }
+    }
+
+    std::string TemplateOptions::toString(size_t indent, size_t indentStart, PLCL::Template::OptionsType optionsType) {
+        std::string result;
+        result += std::format("{}Template{}Options\n", std::string(indentStart, ' '), optionsType == OptionsType::Element ? "Element" : "List");
+        for (auto &option : this->options) {
+            result += option->toString(indentStart + indent);
+        }
+        result += std::format("{}endTemplate{}Options\n", std::string(indentStart, ' '), optionsType == OptionsType::Element ? "Element" : "List");
+        return result;
     }
 
     TemplateOption::TemplateOption(std::vector<Lexer::Token> &tokens, size_t &index) {
@@ -255,5 +328,20 @@ namespace PLCL::Template {
                 std::unreachable();
         }
         index++;
+    }
+
+    std::string TemplateOption::toString(size_t indent) {
+        std::string result;
+        result += std::format("{}{} = ", std::string(indent, ' '), this->name);
+        if (std::holds_alternative<std::string>(this->value)) {
+            result += "\"" + std::get<std::string>(this->value) + "\"\n";
+        } else if (std::holds_alternative<int64_t>(this->value)) {
+            result += std::to_string(std::get<int64_t>(this->value)) + "\n";
+        } else if (std::holds_alternative<Generic::float64_t>(this->value)) {
+            result += std::format("{}\n", std::get<Generic::float64_t>(this->value)); // std::format doesn't give trailing 0s
+        } else if (std::holds_alternative<bool>(this->value)) {
+            result += std::get<bool>(this->value) ? "true\n" : "false\n";
+        }
+        return result;
     }
 }
