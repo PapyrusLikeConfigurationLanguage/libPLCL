@@ -6,7 +6,7 @@ Until there is a stable release, the API is subject to change.
 
 ## TODO
 
-- [ ] Serialization
+- [x] Serialization
 - [ ] Verifying configs against templates
 - [ ] Better error handling
 - [ ] Tests
