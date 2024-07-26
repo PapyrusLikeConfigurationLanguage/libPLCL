@@ -96,7 +96,7 @@ void printElement(PLCL::Template::TemplateElement& element, size_t indent) {
     }
     for (auto& attribute : element.attributes) {
         printIndent(indent);
-        std::cout << "Attribute " << attribute->name << ": " << PLCL::Template::typeToString(attribute->type);
+        std::cout << "Attribute " << attribute->name << ": " << PLCL::Template::attributeTypeToString(attribute->type);
         if (attribute->required) {
             std::cout << " (required)";
         }
